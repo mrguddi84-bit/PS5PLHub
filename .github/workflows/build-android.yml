@@ -35,7 +35,7 @@ jobs:
           gradle-version: '8.11.1'
 
       - name: Extract Android project
-        run: unzip -q PS5PLHub-Android-source.zip
+        run: unzip -oq PS5PLHub-Android-source.zip
 
       - name: Build debug APK
         working-directory: PS5PLHub-Android
