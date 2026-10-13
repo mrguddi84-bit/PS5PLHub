@@ -1,9 +1,10 @@
-name: Build Android APK
+name: Build and publish PS5PLHub downloads
 
 on:
   workflow_dispatch:
   push:
     paths:
+      - 'PS5PLHub.html'
       - 'PS5PLHub-Android-source.zip'
       - '.github/workflows/build-android.yml'
 
@@ -41,12 +42,38 @@ jobs:
         working-directory: PS5PLHub-Android
         run: gradle --no-daemon assembleDebug
 
-      - name: Give APK a clear filename
-        run: cp PS5PLHub-Android/app/build/outputs/apk/debug/app-debug.apk PS5PLHub-Android16-debug.apk
+      - name: Prepare release files
+        run: cp PS5PLHub-Android/app/build/outputs/apk/debug/app-debug.apk PS5PLHub-Android16.apk
 
-      - name: Upload APK artifact
+      - name: Upload only the HTML and APK
         uses: actions/upload-artifact@v4
         with:
-          name: PS5PLHub-Android16-debug
-          path: PS5PLHub-Android16-debug.apk
+          name: release-files
+          path: |
+            PS5PLHub.html
+            PS5PLHub-Android16.apk
           retention-days: 30
+
+  publish-release:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download release files
+        uses: actions/download-artifact@v4
+        with:
+          name: release-files
+          path: dist
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="v1.0.${{ github.run_number }}"
+          gh release create "$tag" \
+            dist/PS5PLHub.html \
+            dist/PS5PLHub-Android16.apk \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "PS5PLHub 1.0.${{ github.run_number }}" \
+            --notes "PS5PLHub standalone HTML and Android 16 debug APK.\n\nDeutsch: HTML lokal im Browser öffnen. Android APK herunterladen und manuell installieren.\nEnglish: Open the HTML locally in a browser. Download and install the Android APK manually."
