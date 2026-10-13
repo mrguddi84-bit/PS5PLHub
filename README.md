@@ -14,6 +14,23 @@ Download `PS5PLHub.html` and open it in your browser. Enter your PS5 IP, add nam
 
 Ten themes: Light, Dark, Cyberpunk, Matrix, Acid Riot, Solar Storm, Ultra Violet, Candy Glitch, Inferno Ice, and BVB Black/Yellow. Interface languages: German, English, Spanish, French, Italian, and Portuguese.
 
+## Screenshots
+
+The following mobile previews show the Matrix and BVB themes. The PS5 address is masked in the hub screenshots.
+
+<details>
+<summary>View all four screenshots</summary>
+
+![Matrix theme — setup](./01-matrix-einstiegsseite.jpg)
+
+![BVB theme — setup](./02-bvb-einstiegsseite.jpg)
+
+![BVB theme — empty hub](./03-bvb-hub-leer.png)
+
+![BVB theme — service list](./04-bvb-dienste.png)
+
+</details>
+
 ## Datenschutz / Privacy
 
 Die HTML lädt keine externen Ressourcen und benötigt keine Installation. IP-Adresse und Dienstliste werden im lokalen Browser gespeichert. / The HTML loads no external resources and requires no installation. The PS5 IP and service list are stored in your local browser.
